@@ -159,7 +159,8 @@ function PreviewPanelShellFrame(
           ? maximized
             ? // Maximizing meets the sidebar border or window edge; omit the duplicate border.
               "flex-1"
-            : "shrink-0 border-l border-border"
+            : // Minitel fork: the panel sits on the left of the chat (the host app's rail is on the right).
+              "shrink-0 border-r border-border"
           : "w-full",
         collapsible &&
           "[[data-panel-animations=true]_&]:transition-[width] [[data-panel-animations=true]_&]:duration-(--panel-animation-duration) [[data-panel-animations=true]_&]:ease-out",
@@ -182,14 +183,19 @@ function PreviewPanelShellFrame(
       data-preview-panel-mode={props.mode}
       data-preview-panel-maximized={maximized ? "true" : "false"}
     >
-      {isInline && !maximized ? <RightPanelResizeHandle handlers={handlers} /> : null}
-      {/* Content stays pinned to the right edge, so closing uncovers the chat
+      {isInline && !maximized ? (
+        <RightPanelResizeHandle
+          handlers={handlers}
+          className="-right-1 left-auto any-pointer-coarse:-right-2 any-pointer-coarse:left-auto"
+        />
+      ) : null}
+      {/* Content stays pinned to the left edge, so closing uncovers the chat
           instead of sliding the tab bar under the title bar controls. */}
       <div
         className={cn(
           "h-full min-h-0 w-full",
           collapsible && "overflow-clip",
-          collapsible && !maximized && "flex justify-end",
+          collapsible && !maximized && "flex justify-start",
         )}
       >
         <div

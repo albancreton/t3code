@@ -35,7 +35,8 @@ export function usePreviewPanelInlineSize(
     defaultWidth: options.defaultWidth ?? PREVIEW_PANEL_DEFAULT_WIDTH,
     minWidth: PREVIEW_PANEL_MIN_WIDTH,
     maxWidth,
-    edge: "left",
+    // Minitel fork: the panel sits on the left of the chat (the host app's rail is on the right).
+    edge: "right",
   });
   const observeRow = (host: HTMLElement) => {
     const row = container ?? (enabled ? host.parentElement : null) ?? null;

@@ -249,7 +249,8 @@ export const ChatHeader = memo(function ChatHeader({
       ref={breadcrumbContainerRef}
       className={cn(
         "flex min-w-0 flex-1 items-center gap-2 sm:gap-3",
-        rightPanelOpen ? "pr-10" : "pr-24",
+        // Minitel fork: the panel sits on the left of the chat (the host app's rail is on the right): so are its controls.
+        rightPanelOpen ? "pl-0" : "pl-10",
       )}
       onContextMenu={handleHeaderContextMenu}
     >

@@ -3267,7 +3267,8 @@ export default function ChatView(props: ChatViewProps) {
   const content = (
     <div
       ref={setWorkspaceLayoutElement}
-      className="relative flex min-h-0 min-w-0 flex-1 overflow-hidden bg-background"
+      // Minitel fork: the panel sits on the left of the chat (the host app's rail is on the right).
+      className="relative flex min-h-0 min-w-0 flex-1 flex-row-reverse overflow-hidden bg-background"
     >
       {embedded ? null : (
         <DeviceSetupDialogHost
@@ -3937,12 +3938,13 @@ export default function ChatView(props: ChatViewProps) {
           maximized={rightPanelMaximized}
           layoutControls={
             rightPanelOpen ? (
-              <div className="mr-px flex items-center gap-1">
+              // Minitel fork: the toggle comes first, where it is while the panel is closed.
+              <div className="ml-px flex items-center gap-1">
+                {panelToggleControls}
                 <RightPanelMaximizeControl
                   maximized={rightPanelMaximized}
                   onToggle={toggleRightPanelMaximizedStable}
                 />
-                {panelToggleControls}
               </div>
             ) : null
           }

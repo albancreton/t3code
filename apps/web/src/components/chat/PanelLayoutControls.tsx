@@ -1,6 +1,6 @@
 import {
   PanelBottomIcon,
-  PanelRightIcon,
+  GitBranchIcon,
   SquareMenuIcon,
   Maximize2Icon,
   Minimize2Icon,
@@ -35,8 +35,6 @@ export interface PanelLayoutControlsProps {
 }
 
 export const PanelLayoutControls = memo(function PanelLayoutControls({
-  showThreadPanelControl = true,
-  showTerminalControl = true,
   showRightPanelControl = true,
   terminalAvailable,
   terminalOpen,
@@ -53,6 +51,9 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
   onToggleThreadPanel,
   onToggleRightPanel,
 }: PanelLayoutControlsProps) {
+  // Minitel fork: the host app is the terminal and names the thread, so only the right panel's toggle is shown.
+  const showThreadPanelControl: boolean = false;
+  const showTerminalControl: boolean = false;
   const threadPanelToggle = (
     <Toggle
       className="relative shrink-0 [-webkit-app-region:no-drag]"
@@ -122,7 +123,7 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
               size="sm"
               disabled={!rightPanelAvailable}
             >
-              <PanelRightIcon className="size-4" />
+              <GitBranchIcon className="size-4" />
             </Toggle>
           </TooltipTrigger>
           <TooltipPopup side="bottom">
@@ -192,9 +193,11 @@ export function WorkspaceTitlebarControls(props: {
 }) {
   return (
     <div
-      className="pointer-events-none fixed top-[var(--workspace-controls-top)] right-[var(--workspace-controls-right)] z-50 mr-px flex h-[var(--workspace-topbar-height)] items-center gap-1 [-webkit-app-region:no-drag]"
+      className="pointer-events-none fixed top-[var(--workspace-controls-top)] left-[var(--workspace-controls-left)] z-50 ml-px flex h-[var(--workspace-topbar-height)] items-center gap-1 [-webkit-app-region:no-drag]"
       data-workspace-titlebar-controls
     >
+      {/* Minitel fork: the panel sits on the left of the chat (the host app's rail is on the right), its toggle first. */}
+      <div className="pointer-events-auto flex h-full items-center">{props.children}</div>
       {props.showMaximizeControl ? (
         <span
           aria-hidden={!props.rightPanelOpen}
@@ -206,7 +209,7 @@ export function WorkspaceTitlebarControls(props: {
               "motion-safe:transition-opacity motion-safe:duration-(--panel-animation-duration) motion-safe:ease-out",
             props.rightPanelOpen
               ? "pointer-events-auto opacity-100"
-              : "pointer-events-none absolute right-full mr-1 opacity-0",
+              : "pointer-events-none absolute left-full ml-1 opacity-0",
           )}
           inert={!props.rightPanelOpen}
         >
@@ -216,7 +219,6 @@ export function WorkspaceTitlebarControls(props: {
           />
         </span>
       ) : null}
-      <div className="pointer-events-auto flex h-full items-center">{props.children}</div>
     </div>
   );
 }

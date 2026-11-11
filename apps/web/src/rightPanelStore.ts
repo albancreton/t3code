@@ -208,8 +208,9 @@ const EMPTY_THREAD_STATE: ThreadRightPanelState = {
   surfaces: [],
 };
 
+// Minitel fork: the thread details card starts closed (its toggle is not shown either).
 const DEFAULT_THREAD_PANEL_VISIBILITY: ThreadPanelVisibility = {
-  inlineOpen: true,
+  inlineOpen: false,
   popoverOpen: false,
 };
 

@@ -1338,14 +1338,17 @@ export function RightPanelTabs(props: RightPanelTabsProps) {
     >
       <div
         className={cn(
-          "flex h-[var(--workspace-topbar-height)] min-h-[var(--workspace-topbar-height)] shrink-0 items-center gap-1 pl-2",
-          props.mode === "inline" && !props.layoutControls ? "pr-28" : "pr-3",
+          "flex h-[var(--workspace-topbar-height)] min-h-[var(--workspace-topbar-height)] shrink-0 items-center gap-1 pr-3",
+          // Minitel fork: the panel sits on the left of the chat (the host app's rail is on the right): its controls are at the top left.
+          props.mode === "inline" && !props.layoutControls ? "pl-20" : "pl-2",
           ownsDesktopTitleBar && "drag-region",
           ownsDesktopTitleBar && "wco:pr-(--workspace-native-controls-inset)",
           props.mode === "inline" && props.maximized && COLLAPSED_SIDEBAR_TITLEBAR_INSET_CLASS,
         )}
         data-right-panel-tabbar
       >
+        {/* Minitel fork: the panel's controls lead its tab bar. */}
+        {props.layoutControls}
         <ScrollArea
           radius="none"
           ref={attachTabList}
@@ -1515,7 +1518,6 @@ export function RightPanelTabs(props: RightPanelTabsProps) {
             </Tooltip>
           </div>
         ) : null}
-        {props.layoutControls}
         {ownsDesktopTitleBar && !props.layoutControls ? (
           <span aria-hidden className="hidden w-24 shrink-0 wco:block" />
         ) : null}
