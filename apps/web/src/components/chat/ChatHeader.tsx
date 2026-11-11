@@ -255,7 +255,8 @@ export const ChatHeader = memo(function ChatHeader({
     >
       <WorkspaceBreadcrumb
         ariaLabel="Thread breadcrumb"
-        className="flex-1 overflow-clip [overflow-clip-margin:2px]"
+        // Minitel fork: the host app's title bar names the folder and the thread, so the breadcrumb is not shown.
+        className="hidden flex-1 overflow-clip [overflow-clip-margin:2px]"
       >
         {activeProject ? (
           <>

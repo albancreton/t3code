@@ -405,13 +405,9 @@ function SidebarControl({ showSidebar }: { readonly showSidebar: boolean }) {
   );
 }
 
-export function AppSidebarLayout({
-  children,
-  showSidebar = true,
-}: {
-  children: ReactNode;
-  showSidebar?: boolean;
-}) {
+export function AppSidebarLayout({ children }: { children: ReactNode; showSidebar?: boolean }) {
+  // Minitel fork: the host app lists the sessions, so the thread sidebar and its toggle are never shown.
+  const showSidebar: boolean = false;
   const sidebarArea = workspaceAreaProps("sidebar", 0, "Threads");
   const [sidebarRouteReveal] = useState<SidebarRouteReveal>(() => ({
     observedKey: null,
