@@ -433,10 +433,21 @@
         height: 96px;
       }
 
-      #boot-shell-logo {
-        width: 64px;
-        height: 64px;
-        object-fit: contain;
+      /* Minitel fork: a spinner stands in for the T3 Code logo while the app loads. */
+      #boot-shell-spinner {
+        box-sizing: border-box;
+        width: 24px;
+        height: 24px;
+        border: 2px solid color-mix(in srgb, currentColor 20%, transparent);
+        border-top-color: color-mix(in srgb, currentColor 70%, transparent);
+        border-radius: 50%;
+        animation: boot-shell-spin 0.8s linear infinite;
+      }
+
+      @keyframes boot-shell-spin {
+        to {
+          transform: rotate(360deg);
+        }
       }
 
       /* App CSS locks body and #root scrolling once main loads, so the error screen scrolls itself. */
@@ -673,8 +684,8 @@
   <body>
     <div id="root">
       <div id="boot-shell">
-        <div id="boot-shell-card" aria-label="T3 Code splash screen">
-          <img id="boot-shell-logo" src="/apple-touch-icon.png" alt="T3 Code" />
+        <div id="boot-shell-card" role="status" aria-label="Loading">
+          <div id="boot-shell-spinner"></div>
         </div>
       </div>
     </div>
